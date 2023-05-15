@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Banker's Algorithm Simulator</title>
+    <link rel="stylesheet" href="./main.css" />
+   
+    <script src="./main.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <center><h2>Banker's Algorithm Simulator</h2></center>
+    </div>
+    <div class="input">
+      <center>
+        Nhập số ô tiến trình: &nbsp<input type="text" id="process" size="2" maxlength="2"/>&nbsp&nbsp&nbsp
+      
+        Nhập số ô tài nguyên: &nbsp<input type="text" id="resource" size="2" maxlength="2"/>&nbsp&nbsp&nbsp
+    
+        <input type="button" value="Tạo bảng" onclick="return createAll()">
+        <br>
+        <!-- 
+        <button type="input" name="avai" onclick="find_avai()">Find available</button>&nbsp&nbsp&nbsp
+        
+        <button type="input" name="seq" onclick="find_sequence()">Find process sequence</button>&nbsp&nbsp&nbsp
+         -->
+      </center>   
+      <div id="container"></div>
+    </div>
+    
+    
+    <button type="input" name="need" onclick="find_need()">Điền Need</button>&nbsp&nbsp&nbsp
+    <button type="input" name="seq" onclick="find_sequence()">Tìm chuỗi an toàn</button>&nbsp&nbsp&nbsp
+    <button type="input" name="reset" onclick="reset()">Reset</button>
+    <div id="seq">
+      
+        Safe Process Sequence : &nbsp&nbsp&nbsp
+      
+    </div>
+
+  </body>
+</html>
