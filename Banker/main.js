@@ -71,13 +71,7 @@ function createAvailable() {
 	var row = document.getElementById("process");
   	var column = document.getElementById("resource");
   
-  if (row.value.length == 0 || column.value.length == 0) {
-    
-		return false;
-  } else if (isNaN(row.value) || isNaN(column.value)) {
-		
-		return false;
-  } else {
+
 		var container = document.getElementById("container");
 	
 		
@@ -119,24 +113,41 @@ function createAvailable() {
 		container.appendChild(tagTable);
 	
 		return true;
-  }
+  
 }
+var check_table_create = false;
 function createAll() {
-	createTable('Allocation');
-	createTable('Max');
-	createTable('Need');
-	createAvailable();
-	createTable('Work');
-	var row = document.getElementById("process");
-	var countRow = parseInt(row.value);
-	var seq = document.getElementById("seq");
-	for(var i = 1; i <= countRow; i++){
-		var input = document.createElement("input");
-		input.maxLength = 2;
-		input.size = 2;
-		input.id = "p" + i;
-		seq.appendChild(input);
-		//seq.appendChild("&nbsp&nbsp&nbsp");
+	if(check_table_create == false)
+	{
+		var row = document.getElementById("process");
+  		var column = document.getElementById("resource");
+  
+		if (row.value.length == 0 || column.value.length == 0) {
+			alert("Vui lòng nhập giá trị số cho số tiến trình và số tài nguyên");
+				return false;
+		} else if (isNaN(row.value) || isNaN(column.value)) {
+			alert("Vui lòng nhập giá trị số cho số tiến trình và số tài nguyên");
+			return false;
+		} else {
+			createTable('Allocation');
+			createTable('Max');
+			createTable('Need');
+			createAvailable();
+			createTable('Work');
+			
+			
+			var countRow = parseInt(row.value);
+			var seq = document.getElementById("seq");
+			for(var i = 1; i <= countRow; i++){
+				var input = document.createElement("input");
+				input.maxLength = 2;
+				input.size = 2;
+				input.id = "p" + i;
+				seq.appendChild(input);
+				//seq.appendChild("&nbsp&nbsp&nbsp");
+			}
+			check_table_create = true;
+		}
 	}
 }
 function validation(){
@@ -162,21 +173,7 @@ function validation(){
   
   
   function reset(){
-	var row = document.getElementById("process");
-  	var column = document.getElementById("resource");
-	var countRow = parseInt(row.value);
-	var countColumn = parseInt(column.value);
-	for(var i=1; i<=countRow; i++){
-	  for(var j=1; j<=countColumn; j++){
-		document.getElementById('a'+i+j).value = '';
-		document.getElementById('m'+i+j).value = '';
-		document.getElementById('n'+i+j).value = '';
-		document.getElementById('av1'+j).value = '';
-	  }
-	  document.getElementById('p'+i).value = ''
-	  document.getElementById('calc'+i).innerHTML = '';
-	}
-	document.getElementById('calc0').innerHTML = '';
+	window.location.reload();
   }
   
   
@@ -233,6 +230,11 @@ function find_sequence(){
   	var column = document.getElementById("resource");
 	var countRow = parseInt(row.value);
 	var countColumn = parseInt(column.value);	
+	var alloc = [];
+	for(var i = 1; i <= countRow; i++){
+		alloc[i] = [];
+		for(var j = 1; j <= countColumn; j++) alloc[i].push(parseInt(document.getElementById('a'+i+j)));
+	}
 
 	var x = [];
 	for(var i=1; i<=countColumn; i++){
@@ -288,4 +290,6 @@ function find_sequence(){
 		alert("Deadlock!!");
 		//reset();
 	}
+	for(var i = 1; i <= countRow; i++)
+		for(var j = 1; j <= countColumn; j++) document.getElementById('a'+i+j).value = alloc[i-1][j-1];
 }
