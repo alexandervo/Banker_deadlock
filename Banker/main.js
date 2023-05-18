@@ -208,7 +208,7 @@ function validation(){
   }
   
   function find_need(){
-
+	document.getElementById('calc1').innerHTML = '<br/>'+'Need[n][n] = Max[n][n] - Allocation[n][n]'+'<br/>';
 	var row = document.getElementById("process");
   	var column = document.getElementById("resource");
 	var countRow = parseInt(row.value);
@@ -216,6 +216,7 @@ function validation(){
 	for(var i=1; i<=countRow; i++){
 	  for(var j=1; j<=countColumn; j++){
 		document.getElementById('n'+i+j).value = parseInt(document.getElementById('m'+i+j).value) - parseInt(document.getElementById('a'+i+j).value);
+		document.getElementById('calc'+i).innerHTML += 'Need['+i+']'+'['+j+']'+' = '+document.getElementById('m'+i+j).value + ' - ' + document.getElementById('a'+i+j).value+' = '+document.getElementById('n'+i+j).value+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
 	  }
 	}
   }
