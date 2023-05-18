@@ -230,6 +230,7 @@ function find_sequence(){
   	var column = document.getElementById("resource");
 	var countRow = parseInt(row.value);
 	var countColumn = parseInt(column.value);	
+	document.getElementById('calc0').innerHTML = '<br/>';
 	var alloc = [];
 	for(var i = 1; i <= countRow; i++){
 		alloc[i] = [];
@@ -242,7 +243,11 @@ function find_sequence(){
 	}
 	
 	for(var n = 1; n <= countRow; n++){
-	  
+		var string_x = "";
+		for(var i=0; i<countColumn; i++){
+			if(i != countColumn -1) string_x += x[i] + ', '; else string_x += x[i];
+		}
+		document.getElementById('calc'+n).innerHTML = 'Bước'+n+':&nbsp&nbsp'+'Tài nguyên sẵn có = '+ string_x;
 		for(var i=k; i<=countRow; i++){
 			var ex = [];
 			for(var j=1; j<=countColumn; j++){
@@ -259,11 +264,26 @@ function find_sequence(){
 					
 				if(check_x == true){
 				document.getElementById('p'+q).value = 'P'+i;
-				
+
+				var string_n = "";
+				for(var o=1; o<=countColumn; o++){
+					if(o != countColumn ) string_n += document.getElementById('n'+i+ o).value + ', '; else string_n += document.getElementById('n'+i+ o).value;
+				}
+				var string_a = "";
+				for(var o=1; o<=countColumn; o++){
+					if(o != countColumn ) string_a += document.getElementById('a'+i+ o).value + ', '; else string_a += document.getElementById('a'+i+ o).value;
+				}
+				var string_work = "";
 				for(var j=1; j<=countColumn; j++){
 					document.getElementById('w'+i+j).value = x[j-1] + parseInt(document.getElementById('a'+i+j).value);
+					if(j != countColumn ) string_work += x[j-1] + parseInt(document.getElementById('a'+i+j).value) + ', '; else string_work += x[j-1] + parseInt(document.getElementById('a'+i+j).value);
 					x[j-1] = x[j-1] + parseInt(document.getElementById('a'+i+j).value);
 					}
+				
+				document.getElementById('calc'+n).innerHTML += '&nbsp&nbsp Với Need['+(i)+'] = ( '+string_n+' ) < Available = ( '+ string_x
+          		+' ) => Nhận tiến trình P'+i+'. Tài nguyên sẵn có hiện tại ( '+string_x+' ) + ( '+string_a+' ) = ('+string_work+' )';
+				
+				
 				
 			
 				for(var l=1; l<=countColumn; l++){
